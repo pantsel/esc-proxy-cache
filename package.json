@@ -1,0 +1,15 @@
+{
+  "name": "esc-proxy-cache",
+  "version": "0.1.0",
+  "description": "Proxy caching service",
+  "main": "index.js",
+  "repository": "https://github.com/pantsel/esc-proxy-cache",
+  "author": "pantsel <tselentispanagis@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^18.4.0"
+  }
+}
