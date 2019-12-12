@@ -1,14 +1,20 @@
 'use strict';
 
 const Hapi = require('@hapi/hapi');
+const Http2 = require('http2');
+const _ = require('lodash');
+
+const Config = require('./config');
 
 
 const init = async () => {
 
-    const server = Hapi.server({
-        port: 3000,
-        host: 'localhost'
-    });
+    const listener = Http2.createSecureServer(Config.server.tls);
+    const options = _.merge(Config.server.options, {
+        listener: listener
+    })
+
+    const server = Hapi.server(options);
 
     await server.start();
     console.log('Server running on %s', server.info.uri);

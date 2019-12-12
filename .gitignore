@@ -121,7 +121,8 @@ nbproject
 /config/mssqlconfig.js
 /www/
 /kongadata/
-/certs/
+/secrets/
 /.env
 .env
 /seeds/
+/secrets/
