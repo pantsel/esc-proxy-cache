@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="865548e5-26f0-465b-bb24-a861dad8a914" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/config/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/proxy/routes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/v1/routes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/cache/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/cache/strategies/memory.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/upstream-server/db.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
@@ -40,11 +44,12 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/secrets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test/upstream-server" />
     <property name="nodejs_package_manager_path" value="yarn" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projects\node\esc-proxy-cache\test\upstream-server" />
       <recent name="C:\Projects\node\esc-proxy-cache\secrets" />
     </key>
   </component>
@@ -76,7 +81,7 @@
       <option name="presentableId" value="Default" />
       <updated>1576144036824</updated>
       <workItem from="1576144038207" duration="1018000" />
-      <workItem from="1576145075223" duration="4984000" />
+      <workItem from="1576145075223" duration="13081000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1576144124694</created>
@@ -92,7 +97,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576145148742</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Set up server using HTTP2">
+      <created>1576153315091</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1576153315091</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -101,7 +113,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
     <MESSAGE value="Ref" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ref" />
+    <MESSAGE value="Set up server using HTTP2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Set up server using HTTP2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1576147635588">
@@ -112,37 +125,37 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="411" y="143" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.680@0.0.1280.680" timestamp="1576147147706" />
-    <state x="265" y="0" key="CommitChangelistDialog2" timestamp="1576145147867">
+    <state x="265" y="0" key="CommitChangelistDialog2" timestamp="1576153314369">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="265" y="0" key="CommitChangelistDialog2/0.0.1280.680@0.0.1280.680" timestamp="1576145147867" />
+    <state x="265" y="0" key="CommitChangelistDialog2/0.0.1280.680@0.0.1280.680" timestamp="1576153314369" />
     <state x="376" y="102" key="EnvironmentVariablesDialog" timestamp="1576147633778">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="376" y="102" key="EnvironmentVariablesDialog/0.0.1280.680@0.0.1280.680" timestamp="1576147633778" />
-    <state x="421" y="82" key="FileChooserDialogImpl" timestamp="1576146977285">
+    <state x="421" y="82" key="FileChooserDialogImpl" timestamp="1576153573551">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="421" y="82" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1576146977285" />
-    <state width="1237" height="523" key="GridCell.Tab.0.bottom" timestamp="1576150556404">
+    <state x="421" y="82" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1576153573551" />
+    <state width="1237" height="523" key="GridCell.Tab.0.bottom" timestamp="1576167959471">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="523" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1576150556404" />
-    <state width="1237" height="523" key="GridCell.Tab.0.center" timestamp="1576150556404">
+    <state width="1237" height="523" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1576167959471" />
+    <state width="1237" height="523" key="GridCell.Tab.0.center" timestamp="1576167959471">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="523" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1576150556404" />
-    <state width="1237" height="523" key="GridCell.Tab.0.left" timestamp="1576150556404">
+    <state width="1237" height="523" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1576167959471" />
+    <state width="1237" height="523" key="GridCell.Tab.0.left" timestamp="1576167959470">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="523" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1576150556404" />
-    <state width="1237" height="523" key="GridCell.Tab.0.right" timestamp="1576150556404">
+    <state width="1237" height="523" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1576167959470" />
+    <state width="1237" height="523" key="GridCell.Tab.0.right" timestamp="1576167959471">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="523" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1576150556404" />
-    <state x="233" y="73" key="Vcs.Push.Dialog.v2" timestamp="1576145153391">
+    <state width="1237" height="523" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1576167959471" />
+    <state x="233" y="73" key="Vcs.Push.Dialog.v2" timestamp="1576153320028">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="233" y="73" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1576145153391" />
+    <state x="233" y="73" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1576153320028" />
   </component>
 </project>

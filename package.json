@@ -7,10 +7,13 @@
   "author": "pantsel <tselentispanagis@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "json-server": "json-server --watch ./test/upstream-server/db.json --port 3001"
   },
   "dependencies": {
+    "@hapi/h2o2": "^8.3.2",
     "@hapi/hapi": "^18.4.0",
+    "dotenv": "^8.2.0",
     "json-server": "^0.15.1",
     "lodash": "^4.17.15"
   }
