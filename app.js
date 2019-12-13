@@ -7,7 +7,7 @@ const Cache = require('./lib/cache');
 
 const init = async () => {
 
-    Cache.setStrategy('memory').init();
+    await Cache.setStrategy('memory').init();
     await Server.lift();
     console.log('Server running on %s', server.info.uri);
 };
