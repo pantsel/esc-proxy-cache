@@ -1,6 +1,7 @@
 'use strict';
 
 const pckg = require('../../package');
+const ProxyHandler = require('./handler');
 
 const proxyRoutes = {
     name: 'proxy',
@@ -10,7 +11,7 @@ const proxyRoutes = {
             method: 'GET',
             path: '/{path*}',
             config: {
-                handler: require('./handler')
+                handler: ProxyHandler.proxy
             }
 
         });
