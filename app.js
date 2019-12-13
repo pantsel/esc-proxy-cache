@@ -13,14 +13,12 @@ const init = async () => {
 
     Cache.setStrategy('memory').init();
 
-    const server = Hapi.server(_.omit(Config.server.options, ['tls']));
+    const listener = Http2.createSecureServer(Config.server.tls);
+    const options = _.merge(Config.server.options, {
+        listener: listener
+    })
 
-    // const listener = Http2.createSecureServer(Config.server.tls);
-    // const options = _.merge(Config.server.options, {
-    //     listener: listener
-    // })
-
-    // const server = Hapi.server(options);
+    const server = Hapi.server(options);
 
     await server.register(H2o2);
 
