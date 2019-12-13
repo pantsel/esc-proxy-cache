@@ -3,7 +3,8 @@ const fs = require('fs');
 module.exports = {
     tls: {
         key: fs.readFileSync(process.env.SERVER_TLS_KEY || process.cwd() + '/secrets/alice.key'),
-        cert: fs.readFileSync(process.env.SERVER_TLS_CRT || process.cwd() +  '/secrets/alice.crt')
+        cert: fs.readFileSync(process.env.SERVER_TLS_CRT || process.cwd() +  '/secrets/alice.crt'),
+        allowHTTP1: true
     },
     options: {
         port: process.env.SERVER_OPTIONS_PORT || 3000,
