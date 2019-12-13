@@ -2,6 +2,7 @@
 
 const pckg = require('../../package');
 const ProxyService = require('./proxy-service')
+const MiddleWare = require('./middleware')
 
 const proxyRoutes = {
     name: 'proxy',
@@ -11,6 +12,9 @@ const proxyRoutes = {
             method: 'GET',
             path: '/{path*}',
             config: {
+                pre: [
+                    MiddleWare.checkCache
+                ],
                 handler: function (request, h) {
                     return ProxyService.proxy(request, h);
                 }
