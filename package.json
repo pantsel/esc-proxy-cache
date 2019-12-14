@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node app.js",
-    "json-server": "json-server --watch ./test/upstream-server/db.json --port 3001"
+    "json-server": "json-server --watch ./test/upstream-server/db.json --port 3001",
+    "test": "lab -e test -v"
   },
   "dependencies": {
     "@hapi/h2o2": "^8.3.2",
