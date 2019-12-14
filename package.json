@@ -15,12 +15,12 @@
     "@hapi/h2o2": "^8.3.2",
     "@hapi/hapi": "^18.4.0",
     "dotenv": "^8.2.0",
-    "json-server": "^0.15.1",
     "lodash": "^4.17.15",
     "winston": "^3.2.1"
   },
   "devDependencies": {
     "@hapi/code": "^7.0.0",
-    "@hapi/lab": "^21.0.0"
+    "@hapi/lab": "^21.0.0",
+    "json-server": "^0.15.1"
   }
 }
