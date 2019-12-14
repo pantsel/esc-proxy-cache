@@ -13,8 +13,8 @@ A reverse proxy with caching and traffic management capabilities.
 
 #### Testing
 - [typicode/json-server](https://github.com/typicode/json-server)
-- [@hapi/lab](https://github.com/typicode/hapijs/lab)
-- [@hapi/code](https://github.com/typicode/hapijs/code)
+- [@hapi/lab](https://hapi.dev/family/lab)
+- [@hapi/code](https://hapi.dev/family/code)
 
 #### Other
 - [Lodash](https://github.com/winstonjs/winston)
