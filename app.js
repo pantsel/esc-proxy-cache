@@ -1,6 +1,6 @@
 'use strict';
 
-require('dotenv').config()
+require('dotenv').config();
 
 const Server = require('./lib/server');
 const Cache = require('./lib/cache');

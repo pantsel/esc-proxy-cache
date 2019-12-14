@@ -1,0 +1,22 @@
+{
+  "/posts": {
+    "ttl": 5000,
+    "tags": []
+  },
+  "/posts/{id}": {
+    "ttl": 500,
+    "tags": []
+  },
+  "/comments": {
+    "ttl": 500,
+    "tags": []
+  },
+  "/comments/{id}": {
+    "ttl": 500,
+    "tags": []
+  },
+  "/comments/{id}/posts": {
+    "ttl": 500,
+    "tags": []
+  }
+}

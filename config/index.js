@@ -1,4 +1,5 @@
 module.exports  =  {
     server: require('./server'),
-    proxy: require('./proxy')
-}
+    proxy: require('./proxy'),
+    cache: require('./cache')
+};

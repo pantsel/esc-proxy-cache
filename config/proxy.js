@@ -5,5 +5,5 @@ module.exports = {
         };
     },
     xforward: process.env.PROXY_XFORWARD === 'true',
-    downstreamResponseTime: process.env.PROXY_XFORWARD === 'true',
-}
+    downstreamResponseTime: process.env.PROXY_DOWNSTREAM_RESPONSE_TIME === 'true',
+};
