@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Flow Charts</title>
+    <style type="text/css">
+        .end-element { fill : #FFCCFF; }
+        body {
+            padding: 1em 2em;
+        }
+        h1,h2 {
+            font-family: "Segoe UI",serif;
+        }
+    </style>
+    <script src="./scripts/raphael.min.js"></script>
+    <script src="./scripts/flowchart.js"></script>
+    <!-- <script src="../release/flowchart.min.js"></script> -->
+    <script>
+
+        window.onload = function () {
+            var btn = document.getElementById("run"),
+                cd = document.getElementById("code"),
+                chart;
+
+            (function () {
+                var code = cd.value;
+
+                if (chart) {
+                    chart.clean();
+                }
+
+                chart = flowchart.parse(code);
+                chart.drawSVG('canvas');
+            })();
+
+        };
+    </script>
+</head>
+<body>
+<div>
+    <h1>Response Flow</h1>
+    <textarea id="code" style="width: 100%;display: none" rows="11">
+        st=>start: Start
+        e=>end
+        respond=>operation: Return response
+        cache=>operation: Cache response
+        sub1=>subroutine: My Subroutine
+        handle=>condition: Handle?
+        get=>condition: GET?|rejected
+        hasresponse=>condition: Is response
+        available?
+        incache=>condition: In cache?
+        pub=>inputoutput: Publish response
+        para=>parallel: async tasks
+        remove=>operation: Remove Cached
+
+        st->handle
+        handle(yes,right)->get
+        handle(no, bottom)->respond->e
+
+        get(yes)->para
+        get(no)->remove->respond->e
+
+        para(path1, bottom)->pub->e
+        para(path2)->cache->e
+
+    </textarea>
+</div>
+<div id="canvas"></div>
+</body>
+</html>

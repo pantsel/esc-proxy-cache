@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Flow Charts</title>
+    <style type="text/css">
+        .end-element { fill : #FFCCFF; }
+        body {
+            padding: 1em 2em;
+        }
+        h1,h2 {
+            font-family: "Segoe UI",serif;
+        }
+    </style>
+    <script src="./scripts/raphael.min.js"></script>
+    <script src="./scripts/flowchart.js"></script>
+    <!-- <script src="../release/flowchart.min.js"></script> -->
+    <script>
+
+        window.onload = function () {
+            var btn = document.getElementById("run"),
+                cd = document.getElementById("code"),
+                chart;
+
+            (function () {
+                var code = cd.value;
+
+                if (chart) {
+                    chart.clean();
+                }
+
+                chart = flowchart.parse(code);
+                chart.drawSVG('canvas');
+            })();
+
+        };
+    </script>
+</head>
+<body>
+<div>
+    <h1>Request Flow</h1>
+    <textarea id="code" style="width: 100%;display: none" rows="11">
+        st=>start: Start
+        e=>end
+        proxy=>operation: Proxy to upstream
+        respond=>operation: Return response
+        cache=>operation: Cache request
+        sub1=>subroutine: My Subroutine
+        cacheable=>condition: Should cache?
+        hasresponse=>condition: Is response
+        available?
+        incache=>condition: In cache?
+        sub=>inputoutput: Subscribe to
+        request topic
+
+        st->cacheable
+        cacheable(yes,right)->incache
+        cacheable(no, bottom)->proxy->e
+
+        incache(yes, right)->hasresponse
+        incache(no, bottom)->cache(left)->proxy->e
+
+        hasresponse(yes)->respond->e
+        hasresponse(no)->sub->e
+    </textarea>
+</div>
+<div id="canvas"></div>
+</body>
+</html>
