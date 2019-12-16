@@ -1,12 +1,14 @@
 const Cache = require('../../../lib/cache');
-const Config = require('../../../config');
+const Utils = require('../../../lib/utils');
+
 
 const RequestMiddleware = {
   method: async (request, h) => {
 
     const path = request.params.path;
     const cacheKey = `/${path}`;
-    const shouldBeHandled = Config.cache.endpoints[cacheKey];
+
+    const shouldBeHandled = Utils.isPathInDefinitions(cacheKey);
 
     if(request.method.toLowerCase() !== ('get' || 'head') || !shouldBeHandled) {
       return h.continue;
@@ -20,7 +22,8 @@ const RequestMiddleware = {
     }
 
     if(cachedRequest.response) {
-      return h.response(cachedRequest.response).takeover();
+      let response = Utils.generateCacheResponse(h, cachedRequest.response);
+      return response.takeover();
     }
 
     // Subscribe to req topic

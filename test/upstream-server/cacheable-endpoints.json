@@ -8,7 +8,7 @@
     "tags": []
   },
   "/comments": {
-    "ttl": 500,
+    "ttl": 5000,
     "tags": []
   },
   "/comments/{id}": {
