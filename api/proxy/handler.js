@@ -14,7 +14,7 @@ module.exports = {
                 Wreck.read(res, { gunzip: true, json: true })
                     .then(async payload => {
                         const cacheKey = Cache.utils.requestKey(request);
-                        await Cache.set(cacheKey, payload, 3000);
+                        await Cache.set(cacheKey, payload);
                     });
                 return res; 
             }
