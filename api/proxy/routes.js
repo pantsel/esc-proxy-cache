@@ -2,6 +2,7 @@
 
 const pckg = require('../../package');
 const ProxyHandler = require('./handler');
+const RequestMiddleware = require('./middleware/request');
 
 const proxyRoutes = {
     name: 'proxy',
@@ -11,6 +12,9 @@ const proxyRoutes = {
             method: 'GET',
             path: '/{path*}',
             config: {
+                pre: [
+                    RequestMiddleware
+                ],
                 handler: ProxyHandler.proxy
             }
 

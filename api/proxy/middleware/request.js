@@ -1,17 +1,21 @@
 const Cache = require('../../../lib/cache');
+const Config = require('../../../config');
 
 const RequestMiddleware = {
   method: async (request, h) => {
-    const endpoint = request.params.path;
-    const endpointConfig = Cache.endpointConfig(endpoint);
 
-    if(!endpointConfig || request.method.toLowerCase() !== 'get') {
+    const path = request.params.path;
+    const cacheKey = `/${path}`;
+    const shouldBeHandled = Config.cache.endpoints[cacheKey];
+
+    if(request.method.toLowerCase() !== ('get' || 'head') || !shouldBeHandled) {
       return h.continue;
     }
 
-    const cachedRequest = await Cache.get(endpoint);
+    const cachedRequest = await Cache.get(cacheKey);
+
     if(!cachedRequest) {
-      Cache.set(endpoint, {}, endpointConfig.ttl).catch(e => console.error(e));
+      Cache.add(cacheKey).catch(e => console.log(e));
       return h.continue;
     }
 
@@ -19,8 +23,7 @@ const RequestMiddleware = {
       return h.response(cachedRequest.response).takeover();
     }
 
-    //Subscribe to topic (return promise)
-
+    // Subscribe to req topic
   },
   assign: 'mreq'
 };
