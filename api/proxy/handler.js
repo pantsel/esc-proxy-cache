@@ -11,11 +11,10 @@ module.exports = {
             onResponse: function (err, res, request, h, settings, ttl) {
                 if(err) { throw err; }
 
-                console.log(`Caching response: `, request.params.path);
                 Wreck.read(res, { gunzip: true, json: true })
                     .then(async payload => {
-                        await Cache.set(`/${request.params.path}`, payload, 3000);
-                        console.log(Cache.strategy.cache);
+                        const cacheKey = Cache.utils.requestKey(request);
+                        await Cache.set(cacheKey, payload, 3000);
                     });
                 return res; 
             }

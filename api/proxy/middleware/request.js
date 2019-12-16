@@ -1,16 +1,13 @@
 const Cache = require('../../../lib/cache');
 const Utils = require('../../../lib/utils');
 
-
 const RequestMiddleware = {
   method: async (request, h) => {
 
-    const path = request.params.path;
-    const cacheKey = `/${path}`;
+    const cacheKey = Cache.utils.requestKey(request);
+    const endpointDefinition = Cache.utils.getEndpointDefinition(cacheKey);
 
-    const shouldBeHandled = Utils.isPathInDefinitions(cacheKey);
-
-    if(request.method.toLowerCase() !== ('get' || 'head') || !shouldBeHandled) {
+    if(request.method.toLowerCase() !== ('get' || 'head') || !endpointDefinition) {
       return h.continue;
     }
 
