@@ -27,12 +27,11 @@ const RequestMiddleware = {
     // Subscribe to req topic
     return Events.subscribe(cacheKey)
         .then(data => {
-          console.log("Got data from events", data);
-          let response = Utils.generateCacheResponse(h, data);
+          let response = Utils.generateCacheResponse(h, data, "QUEUE");
           return response.takeover();
         }).catch(e => console.error(e));
   },
-  assign: 'mreq'
+  assign: 'mReq'
 };
 
 module.exports = RequestMiddleware;

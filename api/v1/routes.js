@@ -17,6 +17,14 @@ const plugin = {
                 };
             }
         });
+
+        server.route({
+            method: 'GET',
+            path: '/health',
+            handler: function (request, h) {
+                return 'OK';
+            }
+        });
     }
 };
 
