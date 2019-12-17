@@ -22,8 +22,9 @@ describe('Cache tests', () => {
     });
 
     after(async () => {
+        await Cache.flush();
         await server.stop();
-        upstreamServer.close();
+        await upstreamServer.close();
     });
 
     it('It cashes GET requests to a tracked endpoint', async () => {

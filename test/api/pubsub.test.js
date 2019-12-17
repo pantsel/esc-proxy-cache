@@ -7,16 +7,12 @@ const { expect } = require('@hapi/code');
 const { before, after, describe, it } = exports.lab = Lab.script();
 const { init } = require('../../lib/server');
 const jsonServer = require('../upstream-server/server');
-const Cache = require('../../lib/cache');
-const Events = require('../../lib/events');
 
 describe('PubSub tests', () => {
     let server;
     let upstreamServer;
 
     before(async () => {
-        await Cache.setStrategy('memory').init();
-        await Events.setStrategy('memory').init();
         upstreamServer = await jsonServer.start(3001, 6000);
         server = await init();
     });
