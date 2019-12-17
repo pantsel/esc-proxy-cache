@@ -34,6 +34,5 @@ lab.experiment('Unit tests', () => {
             expect(isMatch).to.be.false();
         });
     });
-
 });
 

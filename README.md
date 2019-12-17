@@ -22,4 +22,5 @@ A reverse proxy with caching and traffic management capabilities.
 
 ## Flow Charts
 
-### Request Flow
+- [Request Flow](./docs/flow-charts/request-flow.html)
+- [Response Flow](./docs/flow-charts/response-flow.html)
