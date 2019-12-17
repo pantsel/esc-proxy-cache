@@ -13,7 +13,7 @@ describe('PubSub tests', () => {
     let upstreamServer;
 
     before(async () => {
-        upstreamServer = await jsonServer.start(3001, 6000);
+        upstreamServer = await jsonServer.start(3001, 5000);
         server = await init();
     });
 

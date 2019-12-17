@@ -11,7 +11,6 @@ const plugin = {
             path: '/info',
             handler: function (request, h) {
                 return {
-                    request_headers: request.headers,
                     version: plugin.version,
                     date: new Date()
                 };
