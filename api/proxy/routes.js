@@ -8,6 +8,7 @@ const proxyRoutes = {
     name: 'proxy',
     version: pckg.version,
     register: function (server, options) {
+
         server.route({
             method: 'GET',
             path: '/{path*}',
@@ -17,7 +18,18 @@ const proxyRoutes = {
                 ],
                 handler: ProxyHandler.proxy
             }
+        });
 
+        server.route({
+            method: '*',
+            path: '/{path*}',
+            config: {
+                pre: [
+                    RequestMiddleware
+                ],
+                handler: ProxyHandler.proxy,
+                payload: { parse: false }
+            }
         });
     }
 };
