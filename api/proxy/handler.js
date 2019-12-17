@@ -4,6 +4,7 @@ const Config = require('../../config');
 const _ = require('lodash');
 const Wreck = require('@hapi/wreck');
 const Cache = require('../../lib/cache');
+const Events = require('../../lib/events');
 
 module.exports = {
     proxy: (request, h) => {
@@ -23,6 +24,7 @@ module.exports = {
                         .then(async payload => {
                             const cacheKey = Cache.utils.requestKey(request);
                             await Cache.set(cacheKey, payload);
+                            Events.publish(cacheKey, payload).catch(e => console.error(e));
                         });
                     return res;
                 }

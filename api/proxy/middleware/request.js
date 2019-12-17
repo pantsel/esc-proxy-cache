@@ -1,5 +1,6 @@
 const Cache = require('../../../lib/cache');
 const Utils = require('../../../lib/utils');
+const Events = require('../../../lib/events');
 
 const RequestMiddleware = {
   method: async (request, h) => {
@@ -24,6 +25,12 @@ const RequestMiddleware = {
     }
 
     // Subscribe to req topic
+    return Events.subscribe(cacheKey)
+        .then(data => {
+          console.log("Got data from events", data);
+          let response = Utils.generateCacheResponse(h, data);
+          return response.takeover();
+        }).catch(e => console.error(e));
   },
   assign: 'mreq'
 };
