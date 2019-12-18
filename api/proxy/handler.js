@@ -5,18 +5,30 @@ const _ = require('lodash');
 const Wreck = require('@hapi/wreck');
 const Cache = require('../../lib/cache');
 const Events = require('../../lib/events');
+const Logger = require('../../lib/logger');
 
 module.exports = {
     proxy: (request, h) => {
         return h.proxy(_.merge(Config.proxy, {
             onResponse: async function (err, res, request, h, settings, ttl) {
-                if(err) { throw err; }
+                if(err) {
+                    Logger.error("Error on proxy response: ", err);
+                    throw err;
+                }
 
                 const cacheKey = Cache.utils.requestKey(request);
                 const endpointDefinition = Cache.utils.getEndpointDefinition(request.params.path);
 
                 if(!endpointDefinition || request.method.toLowerCase() === 'options') {
                     return res;
+                }
+
+                // TODO: Decide how to handle upstream server error codes
+                if(res.statusCode < 400) {
+                    // Proposition:
+                    // If cache has an unfulfilled item for this url, delete it.
+                    // Then publish a deletion event with the error response as a `reason`,
+                    // in order to handle stale listeners.
                 }
 
                 if(request.method.toLowerCase() === ('get' || 'head')) {

@@ -7,12 +7,12 @@ exports.start = async (port, delay) => {
     const middleware = jsonServer.defaults();
 
     app.use(middleware);
-    app.get('/error_400', (req, res) => {
-        res.status(400).jsonp({
+    app.get('/error504', (req, res) => {
+        res.status(504).jsonp({
             error: "Error message"
         })
     });
-    app.get('/error_501', (req, res) => {
+    app.get('/error501', (req, res) => {
         res.status(501).jsonp({
             error: "Error message"
         })

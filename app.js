@@ -6,6 +6,7 @@ const Config = require('./config');
 const Server = require('./lib/server');
 const Cache = require('./lib/cache');
 const Events = require('./lib/events');
+const Logger = require('./lib/logger');
 
 const init = async () => {
     await Cache.setStrategy(Config.cache.strategy).init();
@@ -16,10 +17,10 @@ const init = async () => {
 init();
 
 process.on('uncaughtException', (err, origin) => {
-    logger.error("uncaughtException at:",origin, 'error', err);
+    Logger.error("uncaughtException at:",origin, 'error', err);
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-    logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
+    Logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
     process.exit(1);
 });
