@@ -13,5 +13,11 @@
   },
   "/comments/{id}/posts": {
     "tags": []
+  },
+  "/error_400": {
+
+  },
+  "/error_501": {
+
   }
 }
