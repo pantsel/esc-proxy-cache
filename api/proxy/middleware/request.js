@@ -1,6 +1,8 @@
 const Cache = require('../../../lib/cache');
 const Utils = require('../../../lib/utils');
 const Events = require('../../../lib/events');
+// const logger = require('../../../lib/logger');
+// const Logger = new logger('api.proxy.middleware.request');
 
 const RequestMiddleware = {
   method: async (request, h) => {
@@ -21,6 +23,7 @@ const RequestMiddleware = {
 
     if(cachedRequest.response) {
       let response = Utils.generateCacheResponse(h, cachedRequest.response);
+      // Logger.log().info(`[CACHE HIT]: ${request.method.toUpperCase()} ${request.url} => %j`,  cachedRequest.response);
       return response.takeover();
     }
 
@@ -28,6 +31,7 @@ const RequestMiddleware = {
     return Events.subscribe(cacheKey)
         .then(data => {
           let response = Utils.generateCacheResponse(h, data, "QUEUE");
+          // Logger.log().info(`[CACHE QUEUE]: ${request.method.toUpperCase()} ${request.url} => %j`,  data);
           return response.takeover();
         }).catch(e => console.error(e));
   },
