@@ -11,11 +11,14 @@ const Events = require('../lib/events');
 const Config = require('../config');
 const Utils = require('../lib/utils');
 
-// Api Tests
-require('./api/basic.test')(Lab, { expect }, { before, after, describe, it }, { init });
-require('./api/proxy.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
-require('./api/cache.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
-require('./api/pubsub.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
+describe('API tests', () => {
+    require('./api/basic.test')(Lab, { expect }, { before, after, describe, it }, { init });
+    require('./api/proxy.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
+    require('./api/cache.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
+    require('./api/pubsub.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
 
-// Unit Tests
-require('./unit/unit.test')({expect}, { experiment, test });
+});
+
+describe('Unit tests', () => {
+    require('./unit/unit.test')({expect}, { experiment, test });
+});

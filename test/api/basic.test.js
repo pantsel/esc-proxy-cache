@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (Lab, { expect }, { before, after, describe, it }, { init }) => {
-    describe('Basic test', () => {
+    describe('Basic API tests', () => {
         let server;
 
         before(async () => {
