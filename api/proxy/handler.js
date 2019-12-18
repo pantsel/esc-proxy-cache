@@ -6,7 +6,6 @@ const Wreck = require('@hapi/wreck');
 const Cache = require('../../lib/cache');
 const Events = require('../../lib/events');
 
-
 module.exports = {
     proxy: (request, h) => {
         return h.proxy(_.merge(Config.proxy, {
