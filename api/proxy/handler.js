@@ -26,7 +26,7 @@ module.exports = {
                 // TODO: Decide how to handle upstream server error codes
                 if(res.statusCode < 400) {
                     // Proposition:
-                    // If a get || head and the cache contains an unfulfilled item for this url, delete it.
+                    // In case of a get || head and if the cache contains an unfulfilled item for this url, delete it.
                     // Then publish a deletion event with the error response as a `reason`,
                     // in order to handle stale listeners.
                 }
