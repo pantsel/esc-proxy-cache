@@ -7,6 +7,16 @@ exports.start = async (port, delay) => {
     const middleware = jsonServer.defaults();
 
     app.use(middleware);
+    app.get('/error_400', (req, res) => {
+        res.status(400).jsonp({
+            error: "Error message"
+        })
+    });
+    app.get('/error_501', (req, res) => {
+        res.status(501).jsonp({
+            error: "Error message"
+        })
+    });
     app.use(function(req, res, next){
         setTimeout(next, delay);
     });
