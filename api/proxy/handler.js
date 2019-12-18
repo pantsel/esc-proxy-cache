@@ -28,8 +28,6 @@ module.exports = {
                         });
                     return res;
                 }
-
-                // Invalidate and return response in any other case
                 await Cache.remove(cacheKey);
                 return res; 
             }

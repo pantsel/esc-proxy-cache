@@ -9,6 +9,7 @@ const { init } = require('../../lib/server');
 const jsonServer = require('../upstream-server/server');
 const Cache = require('../../lib/cache');
 const Events = require('../../lib/events');
+const Utils = require('../../lib/utils');
 
 describe('Cache tests', () => {
     let server;
@@ -66,5 +67,54 @@ describe('Cache tests', () => {
         const cachedRequest = await Cache.get(cacheKey);
 
         expect(cachedRequest).to.be.undefined();
+    });
+
+    describe('Cache Invalidation', () => {
+
+        const endpoint = '/proxy/comments';
+
+        it("Serves the first request from the server", async () => {
+            const res = await server.inject({
+                method: 'get',
+                url: endpoint
+            });
+            expect(res.statusCode).to.equals(200);
+            expect(res.headers).not.to.contain('x-cache');
+        });
+
+        it("Serves the second request from the cache", async () => {
+            const res = await server.inject({
+                method: 'get',
+                url: endpoint
+            });
+            expect(res.statusCode).to.equals(200);
+            expect(res.headers).to.contain('x-cache');
+            expect(res.headers['x-cache']).to.equals('HIT');
+            expect(await Cache.get('/comments')).to.exist();
+        });
+
+        it("Invalidates cache on POST request to the same endpoint", async () => {
+            const res = await server.inject({
+                method: 'post',
+                url: endpoint,
+                payload: {
+                    "body": "some test comment",
+                    "postId": 1
+                }
+            });
+
+            expect(res.statusCode).to.equals(201);
+            expect(await Cache.get('/comments')).to.be.undefined();
+        });
+
+        it("Should proxy the subsequent GET request to the upstream server", async () => {
+            const res = await server.inject({
+                method: 'get',
+                url: endpoint
+            });
+
+            expect(res.statusCode).to.equals(200);
+            expect(res.headers).not.to.contain('x-cache');
+        })
     });
 });
