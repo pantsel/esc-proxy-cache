@@ -15,7 +15,7 @@ module.exports = {
                 const cacheKey = Cache.utils.requestKey(request);
                 const endpointDefinition = Cache.utils.getEndpointDefinition(request.params.path);
 
-                if(!endpointDefinition || request.method.toLowerCase() === 'options' || res.statusCode > 399) {
+                if(!endpointDefinition || request.method.toLowerCase() === 'options') {
                     return res;
                 }
 
