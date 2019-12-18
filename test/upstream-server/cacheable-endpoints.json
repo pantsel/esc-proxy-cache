@@ -1,22 +1,17 @@
 {
   "/posts": {
-    "ttl": 10000,
     "tags": []
   },
   "/posts/{id}": {
-    "ttl": 10000,
     "tags": []
   },
   "/comments": {
-    "ttl": 10000,
     "tags": []
   },
   "/comments/{id}": {
-    "ttl": 10000,
     "tags": []
   },
   "/comments/{id}/posts": {
-    "ttl": 10000,
     "tags": []
   }
 }

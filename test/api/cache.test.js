@@ -9,6 +9,7 @@ const { init } = require('../../lib/server');
 const jsonServer = require('../upstream-server/server');
 const Cache = require('../../lib/cache');
 const Events = require('../../lib/events');
+const Config = require('../../config');
 const Utils = require('../../lib/utils');
 
 describe('Cache tests', () => {
@@ -117,4 +118,37 @@ describe('Cache tests', () => {
             expect(res.headers).not.to.contain('x-cache');
         })
     });
+
+    it('Extends cache item expiration with every cache HIT', async () => {
+
+        const endpoint = '/proxy/posts';
+        Config.cache.ttl = 3000;
+
+        await server.inject({
+            method: 'get',
+            url: endpoint
+        });
+
+        await Utils.sleep(10);
+
+        const cacheItem1 = await Cache.get('/posts');
+        const expiration1 = cacheItem1.expiration;
+
+        await server.inject({
+            method: 'get',
+            url: endpoint
+        });
+
+        const cacheItem2 = await Cache.get('/posts');
+        let expiration2 = cacheItem2.expiration;
+
+        expect(expiration2 > expiration1).to.be.true();
+
+
+
+
+
+
+
+    })
 });
