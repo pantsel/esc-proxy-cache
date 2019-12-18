@@ -27,7 +27,9 @@ module.exports = {
                         });
                     return res;
                 }
-                await Cache.remove(cacheKey);
+
+                Cache.remove(cacheKey).catch(e => console.error(e));
+
                 return res; 
             }
         }))
