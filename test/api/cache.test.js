@@ -80,7 +80,7 @@ module.exports = (Lab, { expect }, { before, after, describe, it }, { init }, js
                 expect(res.statusCode).to.equals(200);
                 expect(res.headers).to.contain('x-cache');
                 expect(res.headers['x-cache']).to.equals('HIT');
-                expect(await Cache.get('/comments')).to.exist();
+                expect(await Cache.get(Cache.utils.encodePath('/comments'))).to.exist();
             });
 
             it("Invalidates cache on POST request to the same endpoint", async () => {
@@ -94,7 +94,7 @@ module.exports = (Lab, { expect }, { before, after, describe, it }, { init }, js
                 });
 
                 expect(res.statusCode).to.equals(201);
-                expect(await Cache.get('/comments')).to.be.undefined();
+                expect(await Cache.get(Cache.utils.encodePath('/comments'))).to.be.undefined();
             });
 
             it("Should proxy the subsequent GET request to the upstream server", async () => {
@@ -120,7 +120,7 @@ module.exports = (Lab, { expect }, { before, after, describe, it }, { init }, js
 
             await Utils.sleep(10);
 
-            const cacheItem1 = await Cache.get('/posts');
+            const cacheItem1 = await Cache.get(Cache.utils.encodePath('/posts'));
             const expiration1 = cacheItem1.expiration;
 
             await server.inject({
@@ -128,17 +128,10 @@ module.exports = (Lab, { expect }, { before, after, describe, it }, { init }, js
                 url: endpoint
             });
 
-            const cacheItem2 = await Cache.get('/posts');
+            const cacheItem2 = await Cache.get(Cache.utils.encodePath('/posts'));
             let expiration2 = cacheItem2.expiration;
 
             expect(expiration2 > expiration1).to.be.true();
-
-
-
-
-
-
-
         })
     });
 };

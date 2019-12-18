@@ -14,7 +14,7 @@ module.exports = {
                 if(err) { throw err; }
 
                 const cacheKey = Cache.utils.requestKey(request);
-                const endpointDefinition = Cache.utils.getEndpointDefinition(cacheKey);
+                const endpointDefinition = Cache.utils.getEndpointDefinition(request.params.path);
 
                 if(!endpointDefinition || request.method.toLowerCase() === 'options') {
                     return res;
@@ -23,7 +23,6 @@ module.exports = {
                 if(request.method.toLowerCase() === ('get' || 'head')) {
                     Wreck.read(res, { gunzip: true, json: true })
                         .then(async payload => {
-                            const cacheKey = Cache.utils.requestKey(request);
                             await Cache.set(cacheKey, payload);
                             Events.publish(cacheKey, payload).catch(e => console.error(e));
                         });
