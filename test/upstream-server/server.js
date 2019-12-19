@@ -17,6 +17,13 @@ exports.start = async (port, delay) => {
             error: "Error message"
         })
     });
+
+    app.get('/error404', (req, res) => {
+        res.status(404).jsonp({
+            error: "Error message"
+        })
+    });
+
     app.use(function(req, res, next){
         setTimeout(next, delay);
     });
