@@ -11,16 +11,16 @@ const RequestMiddleware = {
     const endpointDefinition = Cache.utils.getEndpointDefinition(request.params.path);
 
     // ToDo: Configure weather or not to handle requests without authentication headers.
-    if(request.method.toLowerCase() !== ('get' || 'head') || !endpointDefinition) {
-      return h.continue;
-    }
+      if(request.method.toLowerCase() !== ('get' || 'head') || !endpointDefinition) {
+          return h.continue;
+      }
 
-    const cachedRequest = await Cache.get(cacheKey);
+      const cachedRequest = await Cache.get(cacheKey);
 
-    if(!cachedRequest) {
-      Cache.add(cacheKey).catch(e => console.log(e));
-      return h.continue;
-    }
+      if(!cachedRequest) {
+          Cache.add(cacheKey).catch(e => console.log(e));
+          return h.continue;
+      }
 
     if(cachedRequest.response) {
       let response = Utils.generateCacheResponse(h, cachedRequest.response);
