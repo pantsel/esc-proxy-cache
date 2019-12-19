@@ -30,8 +30,19 @@ const RequestMiddleware = {
     return Events.subscribe(cacheKey)
         .then(event => {
           // SUCCESS OR FAILURE LOGIC
+          if(event.errorCode) {
 
-          if(event.failure) {
+              if(event.errorCode >= 500) {
+                  // TODO: WRITE LOGIC
+              }
+
+              if(event.errorCode === (401 || 403)) {
+                  // TODO: WRITE LOGIC
+              }
+
+              // All other cases
+              let response = Utils.generateCacheError(h, event.data, event.errorCode, "QUEUE");
+              return response.takeover();
 
           }
 

@@ -6,6 +6,7 @@ const Wreck = require('@hapi/wreck');
 const Cache = require('../../lib/cache');
 const Events = require('../../lib/events');
 const Logger = require('../../lib/logger');
+const ErrorHandler = require('./errors');
 
 module.exports = {
     proxy: (request, h) => {
@@ -31,8 +32,9 @@ module.exports = {
 
                 if(request.method.toLowerCase() === ('get' || 'head')) {
 
-
-
+                    if(res.statusCode > 399) {
+                        return ErrorHandler.handle(err, res, request, h, settings, ttl, cacheKey);
+                    }
 
                     Wreck.read(res, { gunzip: true, json: true })
                         .then(async payload => {
