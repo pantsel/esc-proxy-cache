@@ -3,6 +3,7 @@ const _ = require('lodash');
 module.exports = {
     mapUri: function (request, cb) {
 
+        // Strip out http2 pseudo-headers before proxying to upstream
         request.headers = _.pickBy(request.headers, function(value, key) {
             return !_.startsWith(key, ":");
         });
