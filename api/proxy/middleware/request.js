@@ -10,6 +10,7 @@ const RequestMiddleware = {
     const cacheKey = Cache.utils.requestKey(request);
     const endpointDefinition = Cache.utils.getEndpointDefinition(request.params.path);
 
+    // ToDo: Configure weather or not to handle requests without authentication headers.
     if(request.method.toLowerCase() !== ('get' || 'head') || !endpointDefinition) {
       return h.continue;
     }
