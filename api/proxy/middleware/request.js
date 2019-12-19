@@ -5,6 +5,8 @@ const Events = require('../../../lib/events');
 const RequestMiddleware = {
   method: async (request, h) => {
 
+    // Strip http2 request pseudo-headers
+
     const cacheKey = Cache.utils.requestKey(request);
     const endpointDefinition = Cache.utils.getEndpointDefinition(request.params.path);
 
