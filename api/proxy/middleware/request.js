@@ -28,9 +28,16 @@ const RequestMiddleware = {
 
     // Subscribe to req topic
     return Events.subscribe(cacheKey)
-        .then(data => {
-          let response = Utils.generateCacheResponse(h, data, "QUEUE");
+        .then(event => {
+          // SUCCESS OR FAILURE LOGIC
+
+          if(event.failure) {
+
+          }
+
+          let response = Utils.generateCacheResponse(h, event.data, "QUEUE");
           return response.takeover();
+
         }).catch(e => console.error(e));
   },
   assign: 'mReq'

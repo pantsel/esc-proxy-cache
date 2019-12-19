@@ -30,6 +30,10 @@ module.exports = {
                 // in order to handle stale listeners.
 
                 if(request.method.toLowerCase() === ('get' || 'head')) {
+
+
+
+
                     Wreck.read(res, { gunzip: true, json: true })
                         .then(async payload => {
                             await Cache.set(cacheKey, payload);
