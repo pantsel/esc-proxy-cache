@@ -1,6 +1,6 @@
 {
   "name": "esc-proxy-cache",
-  "version": "1.0.0-alpha1",
+  "version": "0.1.0-alpha1",
   "description": "Proxy caching service",
   "main": "index.js",
   "repository": "https://github.com/pantsel/esc-proxy-cache",
@@ -8,6 +8,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node app.js",
+    "preversion": "yarn test",
     "json-server": "json-server --watch ./test/upstream-server/db.json --port 3001",
     "test": "lab -e test -v"
   },

@@ -149,6 +149,7 @@ module.exports = (Lab, { expect }, { before, after, describe, it }, { init }, js
 
             it('Returns a proxy timeout if a topic subscription times out', async () => {
 
+                const originalSubscriptionTimeout = Config.pubSub.subscriptionTimeout;
                 Config.pubSub.subscriptionTimeout = 1000;
 
                 const upstreamPath = '/comments';
@@ -163,10 +164,12 @@ module.exports = (Lab, { expect }, { before, after, describe, it }, { init }, js
                     url: endpoint
                 });
 
+                // Reassign original Config settings so that we have no problems
+                // with the next tests
+                Config.pubSub.subscriptionTimeout = originalSubscriptionTimeout;
+
                 expect(req.statusCode).to.equals(417);
                 expect(JSON.parse(req.payload).message).to.equals('SUBSCRIPTION_TIMEOUT');
-
-
 
             })
         })
