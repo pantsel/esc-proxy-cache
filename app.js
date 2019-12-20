@@ -8,6 +8,8 @@ const Cache = require('./lib/cache');
 const Events = require('./lib/events');
 const Logger = require('./lib/logger');
 
+if(process.env !== 'production') process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+
 const init = async () => {
     await Cache.setStrategy(Config.cache.strategy).init();
     await Events.setStrategy("memory").init();

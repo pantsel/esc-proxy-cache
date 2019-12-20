@@ -14,10 +14,10 @@
   "/comments/{id}/posts": {
     "tags": []
   },
-  "/error_400": {
+  "/error404": {
 
   },
-  "/error_501": {
+  "/error501": {
 
   }
 }

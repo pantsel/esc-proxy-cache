@@ -1,18 +1,16 @@
-const _ = require('lodash');
-
 module.exports = {
-    mapUri: function (request, cb) {
+    h202 : {
+        mapUri: function (request, cb) {
+            return {
+                uri: (process.env.PROXY_H202_UPSTREAM_URI || 'http://localhost:3001') + request.params.path
+            };
+        },
+        xforward: process.env.PROXY_H202_XFORWARD === 'true',
+        passThrough: process.env.PROXY_H202_PASSTHROUGH === 'true',
+        downstreamResponseTime: process.env.PROXY_H202_DOWNSTREAM_RESPONSE_TIME === 'true'
+    }
+};
 
-        // Strip out http2 pseudo-headers before proxying to upstream
-        request.headers = _.pickBy(request.headers, function(value, key) {
-            return !_.startsWith(key, ":");
-        });
-
-        return {
-            uri: (process.env.PROXY_UPSTREAM_URI || 'http://localhost:3001') + request.params.path
-        };
-    },
-    xforward: process.env.PROXY_XFORWARD === 'true',
-    passThrough: process.env.PROXY_PASSTHROUGH === 'true',
-    downstreamResponseTime: process.env.PROXY_DOWNSTREAM_RESPONSE_TIME === 'true'
+module.exports.retryPolicy = {
+    retries: process.env.PROXY_RETRY_POLICY_RETRIES ? parseInt(process.env.PROXY_RETRY_POLICY_RETRIES) : 0
 };

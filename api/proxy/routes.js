@@ -3,6 +3,8 @@
 const pckg = require('../../package');
 const ProxyHandler = require('./handler');
 const RequestMiddleware = require('./middleware/request');
+const StripHttp2Headers = require('./middleware/strip-http2-headers');
+const AddXTryHeader = require('./middleware/add-xtry-header');
 
 const proxyRoutes = {
     name: 'proxy',
@@ -14,6 +16,8 @@ const proxyRoutes = {
             path: '/{path*}',
             config: {
                 pre: [
+                    AddXTryHeader,
+                    StripHttp2Headers,
                     RequestMiddleware
                 ],
                 handler: ProxyHandler.proxy

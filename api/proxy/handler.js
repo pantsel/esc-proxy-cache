@@ -10,25 +10,20 @@ const ErrorHandler = require('./errors');
 
 module.exports = {
     proxy: (request, h) => {
-        return h.proxy(_.merge(Config.proxy, {
+        return h.proxy(_.merge(Config.proxy.h202, {
             onResponse: async function (err, res, request, h, settings, ttl) {
-                if(err) {
-                    Logger.error("Error on proxy response: ", err);
-                    throw err;
-                }
 
                 const cacheKey = Cache.utils.requestKey(request);
                 const endpointDefinition = Cache.utils.getEndpointDefinition(request.params.path);
 
+                if(err) {
+                    Logger.error("Error on upstream connection: ", err);
+                    return ErrorHandler.handle(err, res, request, h, settings, ttl, cacheKey);
+                }
+
                 if(!endpointDefinition || request.method.toLowerCase() === 'options') {
                     return res;
                 }
-
-                // TODO: Decide how to handle upstream server error codes
-                // Proposition:
-                // In case of a get || head and if the cache contains an unfulfilled item for this url, delete it.
-                // Then publish a deletion event with the error response as a `reason`,
-                // in order to handle stale listeners.
 
                 if(request.method.toLowerCase() === ('get' || 'head')) {
 
@@ -39,12 +34,19 @@ module.exports = {
                     Wreck.read(res, { gunzip: true, json: true })
                         .then(async payload => {
                             await Cache.set(cacheKey, payload);
-                            Events.publish(cacheKey, payload).catch(e => console.error(e));
+                            Events.publish(cacheKey, {
+                                action: Events.PUBLISH_ACTIONS.RESPONSE,
+                                payload: payload
+                            }).catch(e => console.error(e));
                         });
                     return res;
                 }
 
-                Cache.remove(cacheKey).catch(e => console.error(e));
+                // In case of any other request method,
+                // Only remove item from cache on a successful response
+                if(res.statusCode < 400) {
+                    Cache.remove(cacheKey).catch(e => console.error(e));
+                }
 
                 return res; 
             }

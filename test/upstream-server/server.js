@@ -6,7 +6,14 @@ exports.start = async (port, delay) => {
     const router = jsonServer.router(require(process.cwd() + '/test/upstream-server/db.json'));
     const middleware = jsonServer.defaults();
 
+    // LET OP! The order of middleware is important!
     app.use(middleware);
+
+    app.use(function(req, res, next){
+        setTimeout(next, delay);
+    });
+
+
     app.get('/error504', (req, res) => {
         res.status(504).jsonp({
             error: "Error message"
@@ -22,9 +29,7 @@ exports.start = async (port, delay) => {
             error: "Error message"
         })
     });
-    app.use(function(req, res, next){
-        setTimeout(next, delay);
-    });
+
     app.use(router);
 
     return new Promise(resolve => {

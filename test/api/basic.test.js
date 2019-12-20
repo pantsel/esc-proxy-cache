@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = (Lab, { expect }, { before, after, describe, it }, { init }) => {
-    describe('Basic API tests', () => {
+
+    describe('Basic API tests', async () => {
         let server;
 
         before(async () => {
@@ -17,6 +18,7 @@ module.exports = (Lab, { expect }, { before, after, describe, it }, { init }) =>
                 method: 'get',
                 url: '/api/v1/info'
             });
+
             expect(res.statusCode).to.equal(200);
             expect(res.payload).to.contains(['version', 'date']);
         });

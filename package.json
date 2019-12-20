@@ -12,6 +12,7 @@
     "test": "lab -e test -v"
   },
   "dependencies": {
+    "@hapi/boom": "^8.0.1",
     "@hapi/h2o2": "^8.3.2",
     "@hapi/hapi": "^18.4.0",
     "@hapi/wreck": "^16.0.1",
