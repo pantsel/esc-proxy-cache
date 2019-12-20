@@ -7,8 +7,6 @@ const Logger = require('../../../lib/logger');
 const RequestMiddleware = {
     method: async (request, h) => {
 
-        // Strip http2 request pseudo-headers
-
         const cacheKey = Cache.utils.requestKey(request);
         const endpointDefinition = Cache.utils.getEndpointDefinition(request.params.path);
 
@@ -29,7 +27,7 @@ const RequestMiddleware = {
             return response.takeover();
         }
 
-        if(request.headers['x-try']  > 1) {
+        if(request.headers['x-try'] && request.headers['x-try']  > 1) {
             return h.continue;
         }
 
@@ -39,14 +37,12 @@ const RequestMiddleware = {
                 if (event.action === Events.PUBLISH_ACTIONS.REMOVAL) {
 
                     if (event.removalReason === Cache.REMOVAL_REASONS.REQUEST_ERROR) {
-                        // return event.error;
                         return Utils.generateCacheError(h, event.error.output.payload, event.error.output.statusCode, 'QUEUE')
                             .takeover()
                     }
 
                     if (event.removalReason === Cache.REMOVAL_REASONS.CACHE_INVALIDATION) {
-                        // Forward the request to the upstream server
-                        return h.continue;
+                        return h.continue; // Forward the request upstream
                     }
 
                     if (event.removalReason === Cache.REMOVAL_REASONS.UPSTREAM_SERVER_ERROR) {
