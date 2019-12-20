@@ -7,6 +7,7 @@ const Errors = {
     isServerError: (res) => {
         return !res || res.statusCode >= 500
     },
+    
     isAuthenticationError: (res) => {
       return res && res.statusCode === (401 || 403)
     },

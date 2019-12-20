@@ -33,10 +33,11 @@ module.exports = {
 
                     Wreck.read(res, { gunzip: true, json: true })
                         .then(async payload => {
-                            await Cache.set(cacheKey, payload);
+                            await Cache.set(cacheKey, {payload, headers: res.headers});
                             Events.publish(cacheKey, {
                                 action: Events.PUBLISH_ACTIONS.RESPONSE,
-                                payload: payload
+                                payload: payload,
+                                headers: res.headers
                             }).catch(e => console.error(e));
                         });
                     return res;
