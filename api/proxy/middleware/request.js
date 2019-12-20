@@ -49,7 +49,7 @@ const RequestMiddleware = {
                         return h.continue;
                     }
 
-                    if (event.removalReason === Cache.REMOVAL_REASONS.UPSTREAM_CONNECTION_REFUSED_OR_TIMEOUT) {
+                    if (event.removalReason === Cache.REMOVAL_REASONS.UPSTREAM_SERVER_ERROR) {
                         // TODO: Decide upon the following
                         // Either forward the requests to the upstream server or
                         // respond with the error the original caller received

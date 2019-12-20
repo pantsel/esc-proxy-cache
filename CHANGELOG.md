@@ -1,4 +1,5 @@
-- Added timeout logic to event subscriptions + tests
+- Implemented timeout logic to event subscriptions + tests
 - Moved http2 headers stripping logic to a middleware
 - Implemented retry policy
 - Worked on error handling
+- Implemented multiple upstreams logic
