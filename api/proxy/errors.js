@@ -14,7 +14,7 @@ const Errors = {
 
     handleServerError: async (err, res, request, h, settings, ttl, cacheKey) => {
         let currentTry = parseInt(request.headers['x-try']);
-        const retries = Config.proxy.retryPolicy.retries;
+        const retries = Config.proxy.retryPolicy.retries || 1;
         if(currentTry  < retries) {
             request.headers['x-try'] = currentTry + 1;
             Logger.info(`Retrying ${request.method} ${request.url.href} retry: ${request.headers['x-try']}`);

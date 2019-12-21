@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node app.js",
     "preversion": "yarn test",
-    "json-server": "json-server --watch ./test/upstream-server/db.json --port 3001",
+    "json-server": "json-server --watch ./test/upstream-server/db.json --port 3001 --delay 5000",
     "test": "lab -e test -v"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "@hapi/h2o2": "^8.3.2",
     "@hapi/hapi": "^18.4.0",
     "@hapi/wreck": "^16.0.1",
+    "bull": "^3.12.1",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.15",
     "micromatch": "^4.0.2",
