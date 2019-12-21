@@ -3,6 +3,7 @@
 const Boom = require('@hapi/boom');
 
 module.exports = (Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils) => {
+
     describe('Error Handling', () => {
 
         let server;

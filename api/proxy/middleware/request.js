@@ -3,15 +3,14 @@ const Utils = require('../../../lib/utils');
 const Events = require('../../../lib/events');
 const Boom = require('@hapi/boom');
 const Logger = require('../../../lib/logger');
+const Config = require('../../../config');
 
 const RequestMiddleware = {
     method: async (request, h) => {
 
         const cacheKey = Cache.utils.requestKey(request);
-        const endpointDefinition = Cache.utils.getEndpointDefinition(request.params.path);
 
-        // ToDo: Configure weather or not to handle requests without authentication headers.
-        if (request.method.toLowerCase() !== ('get' || 'head') || !endpointDefinition) {
+        if (!Cache.utils.shouldBeHandled(request)) {
             return h.continue;
         }
 
