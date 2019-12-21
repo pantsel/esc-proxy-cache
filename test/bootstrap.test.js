@@ -16,6 +16,7 @@ describe('API tests', () => {
     require('./api/proxy.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
     require('./api/cache.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
     require('./api/pubsub.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
+    require('./api/error-handling.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
 
 });
 
