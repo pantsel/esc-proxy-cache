@@ -8,4 +8,5 @@ All notable changes to this project will be documented in this file.
 - Worked on error handling (Still lots to do)
 - Implemented multiple upstreams logic
 - Included original response headers to Cached responses
+- Added `matchHeader` attribute to proxy Config
 - Start versioning
