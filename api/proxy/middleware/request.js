@@ -43,6 +43,7 @@ const RequestMiddleware = {
             return response.takeover();
         }
 
+        // Don't go through subscription phase if the request is retrying
         if(request.headers['x-try'] && request.headers['x-try']  > 1) {
             return h.continue;
         }
@@ -58,19 +59,8 @@ const RequestMiddleware = {
                             .takeover()
                     }
 
-                    // if (event.removalReason === Cache.REMOVAL_REASONS.CACHE_INVALIDATION
-                    //     || event.removalReason === Cache.REMOVAL_REASONS.AUTH_ERROR) {
-                    //     return forwardUpstream(request, h);
-                    // }
-
-                    // if (event.removalReason === Cache.REMOVAL_REASONS.UPSTREAM_SERVER_ERROR) {
-                    //     return Utils.generateCacheError(h, event.error.output.payload, event.error.output.statusCode, 'QUEUE')
-                    //         .takeover()
-                    // }
-
                     // In any other case forward the requests to the upstream server
                     return forwardUpstream(request, h);
-
                 }
 
                 let response = Utils.generateCacheResponse(h, event, "QUEUE");
