@@ -49,6 +49,8 @@ const Errors = {
 
         if(Errors.isAuthenticationError(res)) {
             // ToDo: Handle auth errors
+            Cache.forcefullyRemove(cacheKey, Cache.REMOVAL_REASONS.AUTH_ERROR, res).catch(e => Logger.error(e));
+            return res;
         }
 
         Cache.forcefullyRemove(cacheKey, Cache.REMOVAL_REASONS.REQUEST_ERROR, res).catch(e => Logger.error(e));

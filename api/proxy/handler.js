@@ -7,6 +7,7 @@ const Cache = require('../../lib/cache');
 const Events = require('../../lib/events');
 const Logger = require('../../lib/logger');
 const ErrorHandler = require('./errors');
+const Bull = require('bull');
 
 module.exports = {
     proxy: (request, h) => {
@@ -39,6 +40,7 @@ module.exports = {
                                 payload: payload,
                                 headers: res.headers
                             }).catch(e => console.error(e));
+
                         });
                     return res;
                 }

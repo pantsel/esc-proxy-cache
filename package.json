@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node app.js",
     "preversion": "yarn test",
-    "json-server": "json-server --watch ./test/upstream-server/db.json --port 3001 --delay 5000",
+    "json-server": "json-server --watch ./test/upstream-server/db.json --port 3001",
     "test": "lab -e test -v"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
     "dotenv": "^8.2.0",
     "lodash": "^4.17.15",
     "micromatch": "^4.0.2",
+    "uuid": "^3.3.3",
     "winston": "^3.2.1"
   },
   "devDependencies": {

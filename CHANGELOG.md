@@ -9,4 +9,13 @@ All notable changes to this project will be documented in this file.
 - Implemented multiple upstreams logic
 - Included original response headers to Cached responses
 - Added `matchHeader` attribute to proxy Config
+- Worked on queueing system
 - Start versioning
+
+## Issues
+### It can serve cached responses to requests with invalid or expired authorization headers
+
+#### Possible solutions
+- Authenticate to AT and use our own credentials
+- Poll `/api/v2/tokens/` with a cron job and validate against incoming request headers
+- Include token in the cache key and cache requests per `endpoint:authorization`
