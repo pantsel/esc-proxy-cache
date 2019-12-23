@@ -6,8 +6,7 @@ const Logger = require('../../../lib/logger');
 const uuidv4 = require('uuid/v4');
 const Config = require('../../../config');
 const Bull = require('bull');
-const Wreck = require('@hapi/wreck');
-const Queue = new Bull('queue');
+const Queue = require('../../../lib/queue');
 
 
 const RequestMiddleware = {
@@ -50,37 +49,15 @@ const RequestMiddleware = {
                     }
 
                     if (event.removalReason === Cache.REMOVAL_REASONS.AUTH_ERROR) {
-                        // Add the request to the queue
-                        request['x-queue-id'] = uuidv4();
 
-                        const promise = new Promise((resolve, reject) => {
-                            Queue.process(request['x-queue-id'], async (job) => {
-                                try {
-                                    const { res, payload } = await Wreck.get(job.data.url, {
-                                        headers: job.data.headers,
-                                        json: true
-                                    });
-                                    resolve({payload, headers: res.headers});
-                                }catch (e) {
-                                    reject(e);
-                                }
+                        return Queue.push(request)
+                            .then(result => {
+                                return Utils.generateCacheResponse(h, result, "QUEUE")
+                                    .takeover();
+                            }).catch(e => {
+                                return Utils.generateCacheError(h,e.output.payload, e.output.statusCode, 'QUEUE')
+                                    .takeover();
                             });
-                        });
-
-                        Queue.add(request['x-queue-id'], {
-                            method: request.method,
-                            url: request.url.href,
-                            headers: request.headers
-                        });
-
-                        return promise.then(result => {
-                            let response = Utils.generateCacheResponse(h, result, "QUEUE");
-                            return response.takeover();
-                        }).catch(e => {
-                            return Utils.generateCacheError(h,e.output.payload, e.output.statusCode, 'QUEUE')
-                                .takeover();
-                        })
-
                     }
 
                     if (event.removalReason === Cache.REMOVAL_REASONS.UPSTREAM_SERVER_ERROR) {

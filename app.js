@@ -7,10 +7,12 @@ const Server = require('./lib/server');
 const Cache = require('./lib/cache');
 const Events = require('./lib/events');
 const Logger = require('./lib/logger');
+const Queue = require('./lib/queue');
 
 if(process.env !== 'production') process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 const init = async () => {
+    await Queue.init('queue', {});
     await Cache.setStrategy(Config.cache.strategy).init();
     await Events.setStrategy(Config.pubSub.strategy).init();
     await Server.lift();
