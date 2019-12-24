@@ -12,9 +12,9 @@ const Queue = require('./lib/queue');
 if(process.env !== 'production') process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 const init = async () => {
-    await Queue.init('queue', {});
     await Cache.setStrategy(Config.cache.strategy).init();
     await Events.setStrategy(Config.pubSub.strategy).init();
+    if(Config.queue.enabled) await Queue.init(Config.queue.name, {});
     await Server.lift();
 };
 
