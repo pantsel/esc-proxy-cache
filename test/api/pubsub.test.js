@@ -45,7 +45,7 @@ module.exports = (Lab, { expect }, { before, after, describe, it }, { init }, js
 
             });
 
-            it('It fulfills subsequent requests from the queue', { timeout: 15000 }, async () => {
+            it('It fulfills subsequent requests from the cache', { timeout: 15000 }, async () => {
 
                 const endpoint = "/proxy/posts/1";
 
@@ -81,10 +81,10 @@ module.exports = (Lab, { expect }, { before, after, describe, it }, { init }, js
                         expect(r1.headers).to.not.contain('x-cache');
 
                         expect(r2.headers).to.contain('x-cache');
-                        expect(r2.headers['x-cache']).to.be.equal('QUEUE');
+                        expect(r2.headers['x-cache']).to.be.equal('PUB');
 
                         expect(r3.headers).to.contain('x-cache');
-                        expect(r3.headers['x-cache']).to.be.equal('QUEUE');
+                        expect(r3.headers['x-cache']).to.be.equal('PUB');
 
                     });
             });

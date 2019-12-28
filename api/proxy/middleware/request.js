@@ -63,7 +63,7 @@ const RequestMiddleware = {
                     return forwardUpstream(request, h);
                 }
 
-                let response = Utils.generateCacheResponse(h, event, "QUEUE");
+                let response = Utils.generateCacheResponse(h, event, "PUB");
                 return response.takeover();
             }).catch(e => {
                 Logger.error('Event subscription error', e);

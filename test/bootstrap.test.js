@@ -13,12 +13,12 @@ const Utils = require('../lib/utils');
 const Queue = require('../lib/queue');
 
 describe('API tests', () => {
-    // require('./api/basic.test')(Lab, { expect }, { before, after, describe, it }, { init });
-    // require('./api/proxy.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
-    // require('./api/cache.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
+    require('./api/basic.test')(Lab, { expect }, { before, after, describe, it }, { init });
+    require('./api/proxy.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
+    require('./api/cache.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
     require('./api/queue.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils, Queue);
-    // require('./api/pubsub.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
-    // require('./api/error-handling.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
+    require('./api/pubsub.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
+    require('./api/error-handling.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
 
 });
 

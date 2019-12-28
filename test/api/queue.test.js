@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils, Queue) => {
-    describe('Cache tests', () => {
+    describe('Queue tests', () => {
         let server;
         let upstreamServer;
 
