@@ -63,6 +63,7 @@ module.exports = (Lab, { expect }, { before, after, describe, it }, { init }, js
 
                   expect(r3.headers).to.contain('x-cache');
                   expect(r3.headers['x-cache']).to.be.equal('QUEUE');
+                  expect(JSON.parse(r3.payload)).to.be.an.array();
 
               });
         });
