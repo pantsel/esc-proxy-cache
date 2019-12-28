@@ -1,6 +1,6 @@
 // server.js
 
-exports.start = async (port, delay) => {
+exports.start = async (port, delay, useAuthorization) => {
     const jsonServer = require('json-server');
     const app = jsonServer.create();
     const router = jsonServer.router(require(process.cwd() + '/test/upstream-server/db.json'));
@@ -13,6 +13,15 @@ exports.start = async (port, delay) => {
         setTimeout(next, delay);
     });
 
+    if(useAuthorization) {
+        app.use((req, res, next) => {
+            if (req.headers.authorization) { // add your authorization logic here
+                next() // continue to JSON Server router
+            } else {
+                res.sendStatus(401)
+            }
+        });
+    }
 
     app.get('/error504', (req, res) => {
         res.status(504).jsonp({
