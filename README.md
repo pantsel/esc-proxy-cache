@@ -20,6 +20,9 @@ A reverse proxy with caching and traffic management capabilities.
 - [Lodash](https://github.com/winstonjs/winston)
 - [dotenv](https://github.com/winstonjs/winston)
 
+#### Queue
+- [Bull](https://github.com/OptimalBits/bull)
+
 ## Flow Charts
 
 - [Request Flow](./docs/flow-charts/request-flow.html)
