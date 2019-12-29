@@ -22,15 +22,7 @@ const Errors = {
             const ProxyService = require('./services/proxy-service');
             Logger.info(`Retrying ${request.method} ${request.url.pathname} retry: ${request.headers['x-try']}`);
             try {
-
-                const res  = await ProxyService.proxy(request, h);
-                const payload = await Wreck.read(res, {json: true });
-                if(res.statusCode >= 400) {
-                    const error = Boom.badRequest(payload.message || payload);
-                    error.output.statusCode = res.statusCode;
-                    error.reformat();
-                    throw error;
-                }
+                const {payload, res} = await ProxyService.proxyRead(request, h)
                 return Utils.generateResponse(h, {payload, headers: res.headers}, {
                     'x-try': request.headers['x-try']
                 });

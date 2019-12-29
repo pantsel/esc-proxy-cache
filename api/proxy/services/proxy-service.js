@@ -7,8 +7,9 @@ const ErrorHandler = require('../errors');
 const Events = require('../../../lib/events');
 const _ = require('lodash');
 const Wreck = require('@hapi/wreck');
+const Boom = require('@hapi/boom');
 
-module.exports = {
+const ProxyService = {
     proxy : (request, h) => {
         return h.proxy(_.merge(Config.proxy.h202, {
             onResponse: async function (err, res, request, h, settings, ttl) {
@@ -53,5 +54,19 @@ module.exports = {
                 return res;
             }
         }))
+    },
+
+    proxyRead: async (request, h) => {
+        const res  = await ProxyService.proxy(request, h);
+        const payload = await Wreck.read(res, {json: true });
+        if(res.statusCode >= 400) {
+            const error = Boom.badRequest(payload.message || payload);
+            error.output.statusCode = res.statusCode;
+            error.reformat();
+            throw error;
+        }
+        return {payload, res}
     }
 };
+
+module.exports = ProxyService;
