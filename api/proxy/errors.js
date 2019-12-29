@@ -2,6 +2,8 @@ const Logger = require('../../lib/logger');
 const Cache = require('../../lib/cache');
 const Wreck = require('@hapi/wreck');
 const Config = require('../../config');
+const Utils = require('../../lib/utils');
+const Boom = require('@hapi/boom');
 
 const Errors = {
     isServerError: (res) => {
@@ -17,16 +19,20 @@ const Errors = {
         const retries = Config.proxy.retryPolicy.retries || 1;
         if(currentTry  < retries) {
             request.headers['x-try'] = currentTry + 1;
-            Logger.info(`Retrying ${request.method} ${request.url.href} retry: ${request.headers['x-try']}`);
+            const ProxyService = require('./services/proxy-service');
+            Logger.info(`Retrying ${request.method} ${request.url.pathname} retry: ${request.headers['x-try']}`);
             try {
-                return await Wreck.request(request.method, request.url.href, {
-                    headers: request.headers,
-                    // agents : {
-                    //     https: new Https.Agent({
-                    //         key: Config.server.tls.key,
-                    //         cert: Config.server.tls.cert
-                    //     }),
-                    // }
+
+                const res  = await ProxyService.proxy(request, h);
+                const payload = await Wreck.read(res, {json: true });
+                if(res.statusCode >= 400) {
+                    const error = Boom.badRequest(payload.message || payload);
+                    error.output.statusCode = res.statusCode;
+                    error.reformat();
+                    throw error;
+                }
+                return Utils.generateResponse(h, {payload, headers: res.headers}, {
+                    'x-try': request.headers['x-try']
                 });
             }
             catch (error) {
