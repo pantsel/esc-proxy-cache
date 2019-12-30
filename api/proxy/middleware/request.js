@@ -6,7 +6,6 @@ const Logger = require('../../../lib/logger');
 const Queue = require('../../../lib/queue');
 const Config = require('../../../config');
 
-
 function pushToQueue(request, h) {
     return Queue.push(request, h)
         .then(result => {
@@ -19,7 +18,7 @@ function pushToQueue(request, h) {
 }
 
 function forwardUpstream(request, h) {
-    return Config.queue.enabled ? pushToQueue(request, h) : h.continue;
+    return Config.queue.enabled && Queue.getState() === 'ready' ? pushToQueue(request, h) : h.continue;
 }
 
 const RequestMiddleware = {

@@ -21,7 +21,7 @@ const init = async () => {
 init();
 
 process.on('uncaughtException', (err, origin) => {
-    Logger.error("uncaughtException at:",origin, 'error', err);
+    Logger.error("uncaughtException", err);
 });
 
 process.on('unhandledRejection', (reason, promise) => {
