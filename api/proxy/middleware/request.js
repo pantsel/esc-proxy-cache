@@ -4,7 +4,6 @@ const Events = require('../../../lib/events');
 const Boom = require('@hapi/boom');
 const Logger = require('../../../lib/logger');
 const Queue = require('../../../lib/queue');
-const Config = require('../../../config');
 const QueueStates = require('../../../lib/queue/states.js');
 
 function pushToQueue(request, h) {
