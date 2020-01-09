@@ -1,6 +1,6 @@
 {
   "name": "esc-proxy-cache",
-  "version": "0.1.0-alpha1",
+  "version": "0.1.0-alpha2",
   "description": "Proxy caching service",
   "main": "index.js",
   "repository": "https://github.com/pantsel/esc-proxy-cache",
