@@ -67,11 +67,16 @@ PROXY_RETRY_POLICY_RETRIES=${proxy_h202_retry_policy_retries}
 # CACHING
 CACHE_STRATEGY=${cache_strategy}
 CACHE_TTL=${cache_ttl}
+CACHE_ROLLING_TTL=${cache_rolling_ttl}
 CACHE_ENDPOINTS_JSON_FILE_PATH=${cache_endpoints_json_file_path}
 
 # PUBSUB
 PUBSUB_STRATEGY=${pubsub_strategy}
 SUBSCRIPTION_TIMEOUT=${pubsub_subscription_timeout}
+
+# QUEUE
+QUEUE_STRATEGY=${queue_strategy}
+QUEUE_NAME=${queue_name}
 EOL
   fi
 }
