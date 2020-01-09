@@ -30,8 +30,13 @@ proxy_h202_retry_policy_retries=3
 ### Caching
 cache_strategy=memory
 cache_ttl=10000
+cache_rolling_ttl=true
 cache_endpoints_json_file_path=$(pwd)/test/upstream-server/cacheable-endpoints.json
 
 ### pubsub
 pubsub_strategy=memory
 pubsub_subscription_timeout=30000
+
+### queue
+queue_strategy=memory
+queue_name=queue
