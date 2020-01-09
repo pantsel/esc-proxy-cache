@@ -19,7 +19,7 @@ function pushToQueue(request, h) {
 }
 
 function forwardUpstream(request, h) {
-    return Config.queue.enabled && Queue.getState() === QueueStates.QUEUE_STATE_READY ? pushToQueue(request, h) : h.continue;
+    return Queue.getState() === QueueStates.QUEUE_STATE_READY ? pushToQueue(request, h) : h.continue;
 }
 
 const RequestMiddleware = {

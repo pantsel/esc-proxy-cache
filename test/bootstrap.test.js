@@ -16,9 +16,7 @@ describe('API tests', () => {
     require('./api/basic.test')(Lab, { expect }, { before, after, describe, it }, { init });
     require('./api/proxy.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
     require('./api/cache.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
-    if(Config.queue.enabled) {
-        require('./api/queue.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils, Queue);
-    }
+    require('./api/queue.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils, Queue);
     require('./api/pubsub.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
     require('./api/error-handling.test')(Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils);
 
