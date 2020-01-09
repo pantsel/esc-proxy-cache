@@ -12,7 +12,7 @@ module.exports = (Lab, { expect }, { before, after, describe, it }, { init }, js
             before(async () => {
                 await Cache.setStrategy('memory').init();
                 await Events.setStrategy('memory').init();
-                await Queue.init(Config.queue.name, {});
+                await Queue.setStrategy('redis').init(Config.queue.name, {});
                 upstreamServer = await jsonServer.start(3001, 4000, true);
                 server = await init();
             });
