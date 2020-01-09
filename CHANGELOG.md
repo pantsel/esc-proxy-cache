@@ -1,7 +1,9 @@
 # Change Log
+
 All notable changes to this project will be documented in this file.
 
 ## v.0.1.0-alpha1
+
 - Implemented timeout logic to event subscriptions + tests
 - Moved http2 headers stripping logic to a middleware
 - Implemented retry policy

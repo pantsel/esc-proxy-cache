@@ -41,10 +41,6 @@
 
 config/local.js
 
-
-
-
-
 ################################################
 # Dependencies
 #
@@ -69,9 +65,6 @@ config/local.js
 node_modules
 bower_components
 
-
-
-
 ################################################
 # Sails.js / Waterline / Grunt
 #
@@ -80,10 +73,6 @@ bower_components
 ################################################
 .tmp
 dump.rdb
-
-
-
-
 
 ################################################
 # Node.js / NPM
@@ -97,10 +86,6 @@ lib-cov
 *.out
 *.pid
 npm-debug.log
-
-
-
-
 
 ################################################
 # Miscellaneous
@@ -118,13 +103,9 @@ nbproject
 .node_history
 /logs/*
 !/logs/.gitkeep
-/config/mssqlconfig.js
-/www/
-/kongadata/
 /secrets/
 /.env
 .env
 /seeds/
-/secrets/
 ./.idea
 /test/output/
