@@ -2,7 +2,7 @@
 
 module.exports = (Lab, { expect }, { before, after, describe, it }, { init }, jsonServer, Cache, Events, Config, Utils, Queue) => {
 
-    describe('Queue tests', () => {
+    describe('Queue tests => Strategy: Memory', () => {
         let server;
         let upstreamServer;
 
